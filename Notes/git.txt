@@ -1,0 +1,29 @@
+####add folder etc####
+git config --global user.name 
+git config --global user.email 
+git config --list
+
+---after clone
+git branch <BRANCH-NAME>  #local branch
+git status
+git checkout <BRANCH-NAME>  # to set local branch
+git status
+git add <FILE-NAME>
+git status
+git commit -m "msg"
+git log
+git push -u origin <BRANCH-NAME>
+
+-----
+git checkout master
+git pull	#Keeping the Local Repository in Sync
+  
+###delete folder###
+git checkout master
+
+git rm -r folder-name
+
+git commit -m "Remove duplicated directory"
+
+git push origin master
+#########
