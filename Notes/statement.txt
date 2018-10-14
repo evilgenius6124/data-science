@@ -1,0 +1,119 @@
+#######
+	f[f['a'] <= 3]['b'] chain indexing worst
+	f.loc[f['a'] <= 3, 'b'] best 
+	
+	The rough rule is any time you see back-to-back square brackets, ][, you're in asking for trouble. 
+	Replace that with a .loc[..., ...] and you'll be set
+	
+	.loc[row_indexer, column_indexer]
+	
+	multiIndex: .loc[(row_indexer), column_indexer] tuple
+	
+	to use ":" in multiIndex pd.IndexSlice[]
+	hdf.loc[pd.IndexSlice[:, ['ORD', 'DSM']], ['dep_time', 'dep_delay']] instead of hdf.loc[(:, ['ORD', 'DSM'])] 
+#####
+Method chaining
+	axis =1 all columns o/p equal to no of indexs
+	
+	df.assign()
+	DataFrame.pipe(func, *args, **kwargs)
+	Series.map(arg, na_action=None/ignore)
+	Series.apply(func, convert_dtype=True, args=(), **kwds)
+	DataFrame.apply(func, axis=0, broadcast=None, raw=False, reduce=None, result_type=None, args=(), **kwds)
+	rename : Series.rename and NDFrame.rename_axis 
+	
+	DataFrame.pipe(func, *args, **kwargs)
+
+
+*string method*
+	str.extract
+	str.replace
+	str.pad
+	str.slice
+
+
+
+*re*
+	(.*), \w{2}
+
+
+
+
+$$$df.copy() when to use in func
+
+
+
+*pd*
+	to_numeric
+	to_datetime
+	Categorical
+	pd.TimeGrouper("H")
+	DataFrame.query(expr, inplace=False, **kwargs)
+	pd.io.json.json_normalize
+	concat
+	merge
+	nlargest()
+	nsmallest()
+	pd.melt(df, id_vars, value_vars, value_name) pd.pivot_table
+	pd.Timestamp
+
+
+
+
+*normal*
+	isin is in ->
+	to_frame()
+
+
+*df*
+	set_index( , append=False) sort_index reset_index(level) rename_axis
+	query : Query the columns of a frame with a boolean expression.
+	eval
+
+# The `categories` attribute of a Categorical is an Index :: flights.origin.cat.categories
+
+
+
+#indexes
+# The `categories` attribute of a Categorical is an Index :: flights.origin.cat.categories
+operations b/w indexes & | ^ difference
+index.levels[0]
+
+##Multi-index
+	multiIndex: .loc[(row_indexer), column_indexer] tuple
+
+to use ":" in multiIndex pd.IndexSlice[]
+	hdf.loc[pd.IndexSlice[:, ['ORD', 'DSM']], ['dep_time', 'dep_delay']] instead of hdf.loc[(:, ['ORD', 'DSM'])] 
+
+pd.MultiIndex.from_product
+
+
+
+
+
+###best coding
+//index date and station
+	daily = (weather.reset_index(level="station")
+	.groupby([pd.TimeGrouper('1d'), "station"])
+	.agg(aggfuncs))
+
+##unix style
+	glob.glob(pathname, *, recursive=False)
+	os.listdir()
+
+
+##TimeSeries
+	resample() 'W' 'd'
+	agg() arg: list or dict
+	Series.rolling(window, min_periods=None, center=False, win_type=None, on=None axis=0, closed=None)
+	Series.expanding(min_periods=1, center=False, axis=0) LIKE cummulative
+	Series.ewm(com=None, span=None, halflife=None, alpha=None, min_periods=0, adjust=True, ignore_na=False, axis=0)
+
+rolling, expanding, ewm
+
+
+dateutil.relativedelta ex: NOW+relativedelta(months=+1)
+pd.DateOffset(months=3, days=-2) same as above works with array
+
+timezone: # tz naiive -> tz aware..... to desired UTC
+gs.tz_localize('US/Eastern').tz_convert('UTC').head()

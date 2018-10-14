@@ -1,0 +1,42 @@
+***np**
+np.isclose()			: return  bool
+np.isnan()				
+np.argwhere(cond)
+np.digitize(x, bins, right=False)     : to make catagorial
+np.argsort()				reverse [::-1
+np.zeros_like(a, dtype)
+np.triu_indices_from(a)
+np.array_equal()
+np.newaxis          same as reshape(-1,1) 
+np.random.choise(a,size,replace)
+np.intersect1d()
+np.random.permutation(x)
+#####
+hist: bins='fd'
+
+**********matplotlib.pyplot***
+	matplotlib.pyplot.text
+
+********padas***
+	pd.options.display.float_format = '{:20,.2f}'.format
+	pandas.tools.plotting
+		radviz
+ 
+	df.sort_values(by, axis)				normally together  reset_index(drop=True)
+	pd.concat([])
+	Series.nunique()
+	df.iterrows()       index, series
+####
+
+******sklearn**
+	feature_selection
+		chi2, f_classif : anova F pval				|| classification    : o/p catagorial
+		**
+		SelectKBest, SelectPercentile					|| scoring fun based
+		RFE, RFECV,SelectFromModel 						|| Model based
+		VarianceThreshold
+		
+	preprocessing
+		Binarizer, Imputer, PolynomialFeatures, scale, Normalizer
+		
+	

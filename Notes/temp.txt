@@ -1,0 +1,280 @@
+https://github.com/nborwankar/LearnDataScience/tree/master/notebooks
+
+https://github.com/chendaniely/scipy-2017-tutorial-pandas/tree/master/02-lesson
+
+https://github.com/gapatino/Doing-frequentist-statistics-with-Scipy/blob/master/PyData%20DC%202016%20-%20Doing%20frequentist%20statistics%20with%20Scipy.ipynb
+
+https://github.com/jcbozonier/PyData2015
+
+https://github.com/springcoil/PyDataLondonTutorial
+
+
+https://github.com/jznf/pydata-berlin-2017
+
+
+
+##comp:
+https://www.kaggle.com/c/sberbank-russian-housing-market
+
+
+if __name__ == "__main__":
+
+
+zip(*[(d.date(), d.time()) for d in df['my_timestamp']])
+
+
+in read_csv
+parse_dates = True, low_memory = False, index_col = 'Date'
+
+
+
+# statistics
+from statsmodels.distributions.empirical_distribution import ECDF //same as describe()
+
+import statsmodels.formula.api as smf
+import statsmodels.tsa.api as smt
+import statsmodels.api as sm
+
+sns.despine()
+sns.tight_layout()
+
+
+plt.fill_between(X, Y1,Y2,color='k',alpha=.5)
+__________________________________________________
+
+np.expm1 exp - 1 inverse log1p
+
+sklearn.ensemble.GradientBoostingClassifier
+
+
+RandomizedSearchCV best_params_ best_score_
+
+
+##xgboost : http://xgboost.readthedocs.io/en/latest/python/python_api.html#module-xgboost.sklearn
+# base parameters
+params = {
+'booster': 'gbtree', 
+'objective': 'reg:linear', # regression task
+'subsample': 0.8, # 80% of data to grow trees and prevent overfitting
+'colsample_bytree': 0.85, # 85% of features used
+'eta': 0.1, 
+'max_depth': 10, 
+'seed': 42} # for reproducible results
+
+
+XGBRegressor(**params_sk)
+
+/*
+dtrain = xgb.DMatrix(X_train[predictors], y_train)
+watchlist = [(dtrain, 'train'), (dtest, 'test')]
+
+xgb_model = xgb.train(params, dtrain, 300, evals = watchlist,
+early_stopping_rounds = 50, feval = rmspe_xg, verbose_eval = True)
+
+xgb.plot_importance(model_final)
+
+
+def rmspe(y, yhat):
+return np.sqrt(np.mean((yhat / y-1) ** 2))
+
+def rmspe_xg(yhat, y):
+y = np.expm1(y.get_label())
+yhat = np.expm1(yhat)
+return "rmspe", rmspe(y, yhat) 
+*/
+
+import xgboost as xgb
+from xgboost.sklearn import XGBClassifier
+
+booster [default=gbtree]
+silent [default=0]
+nthread [default to maximum number of threads available if not set]
+
+
+
+feature_importances: model.booster().get_fscore()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##GBM
+from sklearn.ensemble import GradientBoostingClassifier
+
+learning_rate
+n_estimators
+subsample ~.8
+
+loss
+init
+random_state
+verbose
+warm_start
+presort
+
+min_samples_split
+min_samples_leaf
+min_weight_fraction_leaf
+max_depth
+max_leaf_nodes
+max_features
+
+
+1. 
+n_estimators 
+
+2. 
+Tune max_depth and num_samples_split
+Tune min_samples_leaf
+Tune max_features
+
+3.
+subsample
+
+learning_rate--
+
+
+feature_importances_
+
+******************************
+
+metrics.roc_auc_score for binary classification scoring='roc_auc'
+
+
+model.predict_proba(X) o/p: n_sample X n_classes
+
+cross_val_score(model, X, y, cv, scoring)
+
+
+
+GridSearchCV grid_scores_ ||cv_results_ best_params_ best_score_
+
+
+******************
+##timeseries
+
+pd.to_datetime()
+
+DatetimeIndex.weekofyear, day, month, year otherwise .dt.day, month, year, hour, dayofweek
+
+
+with groupby describe() sum() mean()
+
+statsmodels.tsa.seasonal
+seasonal_decompose(x, model="additive", filt=None, freq=None, two_sided=True,
+extrapolate_trend=0)
+
+statsmodels.graphics.tsaplots
+plot_acf(x, ax=None, lags=None, alpha=.05, use_vlines=True, unbiased=False,
+fft=False, title='Autocorrelation', zero=True,
+vlines_kwargs=None, **kwargs)
+
+similar pacf
+
+from statsmodels.tsa.seasonal import seasonal_decompose trend seasonal resid
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.stattools import adfuller 
+
+pd.datetime.strptime(date_string, format)
+
+parse_dates
+date_parser: takes fun dateparse = lambda dates: pd.datetime.strptime(dates, '%Y-%m')
+
+stationary: mean, variance, covariance constant over time
+
+pd.rolling_mean pd.rolling_std || df.rolling().mean() , std()
+
+
+from statsmodels.tsa.stattools import adfuller Augmented Dickey-Fuller for stationary t stats < critical_value 5%
+
+pd.ewma(, halflife) exp weighted moving average
+
+
+
+plt.axhline
+
+
+from statsmodels.tsa.arima_model import ARIMA Autoregressive Integrated Moving Average ARIMA(p,d,q) Model 
+fittedvalues
+
++/- 1.96/np.sqrt(len(timeseries))
+
+
+p : upper confidance interval of PACF The number of Auto-Regressive Terms
+q : upper confidance interval of ACF The number of Moving Average Term
+d : The number of differences taken
+
+from statsmodels.tsa.api import ExponentialSmoothing, SimpleExpSmoothing, Holt
+
+statsmodels.api.tsa.statespace.SARIMAX
+
+********************
+
+from statsmodels.regression.linear_model import OLS
+
+
+
+
+xgboost: params['eval_metric']
+Tree stop due to early stopping:
+bst.best_score, bst.best_iteration and bst.best_ntree_limit
+
+predict: bst.predict(dtest, ntree_limit=bst.best_ntree_limit)
+
+xgb.plot_importance(bst)
+
+*******************
+a[:,np.newaxis]
+
+sns.distplot(df_train['SalePrice'], fit=norm) 
+
+stats.probplot() :: can be used to decide transform in regression dependent variable
+
+log1p = log(1+p)
+
+
+
+
+https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard
+
+
+
+params['eval_metric']
+
+
+model.best_score,
+model.best_iteration+1
+
+max_depth and min_child_weight
+
+subsample and colsample_bytree
+
+Tree stop due to early stopping:
+bst.best_score, bst.best_iteration and bst.best_ntree_limit
+
+predict: bst.predict(dtest, ntree_limit=bst.best_ntree_limit)
+
+xgb.plot_importance(bst)
+
+
+
+
+
+
+Rajahmundry
+Maredumalli and Rampachodavaram:
+

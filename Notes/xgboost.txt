@@ -1,0 +1,79 @@
+﻿XGBOOST:
+dtrain = xgb.DMatrix(data, label=label,  missing=-999.0)
+
+(dtest,’eval’), (dtrain,’train’)]  :: evals_result  or watchlist
+
+***
+
+***
+
+Tree stop due to early stopping:
+bst.best_score, bst.best_iteration and bst.best_ntree_limit
+
+predict: bst.predict(dtest, ntree_limit=bst.best_ntree_limit)
+
+xgb.plot_importance(bst)
+
+model.get_fscore()   feature imp dict
+
+******
+xgb_pars = {'min_child_weight': 10, 'eta': 0.04, 'colsample_bytree': 0.8, 'max_depth': 15,
+            'subsample': 0.75, 'lambda': 2, 'nthread': -1, 'booster' : 'gbtree', 'silent': 1, 'gamma' : 0,
+            'eval_metric': 'rmse', 'objective': 'reg:linear'}  
+			
+ 
+****
+feval ::   fun(preds, dtrain)  "return"  metric_name, result
+	def evalerror(preds, dtrain):
+    labels = dtrain.get_label()
+    # return a pair metric_name, result
+    # since preds are margin(before logistic transformation, cutoff at 0)
+    return 'error', float(sum(labels != (preds > 0.0))) / len(labels)
+	
+****
+xgboost.train(params, dtrain, num_boost_round=10, evals=(), obj=None, feval=None, maximize=False, early_stopping_rounds=None, evals_result=None,
+verbose_eval=True, xgb_model=None, callbacks=None, learning_rates=None)
+ 
+ 
+evals : watchlist
+
+*******
+
+learning_rate =0.1,
+n_estimators=1000,
+
+
+gamma :min_split_loss		:: tune last with CV   like regularization para
+max_depth [default=6]
+
+subsample 
+colsample_bytree 
+
+
+alpha  L1  0
+lambda L2  1
+
+
+objective 
+
+
+
+###################################################################################
+**Manual CV**
+for train,test in skf:
+	xg_train = xgb.DMatrix(data_X.values[train],data_Y.values[train])
+	xg_valid = xgb.DMatrix(data_X.values[test],data_Y.values[test])
+	watchlist = [ (xg_train,'train'),(xg_valid,'validation')]
+	
+	bst = xgb.train(param, xg_train, num_boost_round=rounds,evals=watchlist,verbose_eval=False)
+	
+	pred_Y = bst.predict(xg_valid)
+	fpr, tpr, thresholds = metrics.roc_curve(data_Y.values[test], pred_Y)
+	results.append(metrics.auc(fpr, tpr))
+	#rounds.append(bst.best_ntree_limit)
+	print("CV"+str(i)+" done")
+	i+=1
+##################################
+ 
+ 
+

@@ -1,0 +1,48 @@
+conda create --name do_not
+
+conda env list
+
+activate do_not
+
+
+--no-update-dependencies
+
+conda install -c conda-forge tdqm --no-update-dependencies
+
+pip install tqdm
+pip install --upgrade --upgrade-strategy only-if-needed mypackage
+
+
+pip install ipykernel
+python -m ipykernel install --user --name do_not --display-name "Python (do_not)"
+// C:\Users\Bhawani Singh\AppData\Roaming\jupyter\kernels\do_not
+
+conda install nb_conda
+	
+
+
+conda env list --json
+
+jupyter notebook --generate-config	
+jupyter notebook password
+
+
+anaconda search -t conda xgboost
+
+
+
+python -m ipykernel install --user --name myenv --display-name "Python (myenv)"
+
+
+conda install pip
+
+
+--no-update-deps
+
+***env** :(
+conda create --name do_not
+conda install pip
+pip install ipykernel
+python -m ipykernel install --user --name do_not --display-name "Python (do_not)"
+
+*****
