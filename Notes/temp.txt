@@ -208,7 +208,7 @@ pd.ewma(, halflife) exp weighted moving average
 plt.axhline
 
 
-from statsmodels.tsa.arima_model import ARIMA Autoregressive Integrated Moving Average ARIMA(p,d,q) Model 
+from statsmodels.tsa.arima_model import ARIMA Autoregressive Integrated Moving Average ARIMA(p,d,q) Model    ||| seasonality, trend, and noise
 fittedvalues
 
 +/- 1.96/np.sqrt(len(timeseries))

@@ -3,8 +3,9 @@ np.set_printoptions(precision=2)
 
 import pandas as pd
 pd.set_option('display.max_columns', 500)
+pd.set_option('display.max_colwidth', 100)
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
-
+pd.set_option('display.max_colwidth', 100)
 
 import matplotlib.pyplot as plt
 %matplotlib inline
@@ -12,8 +13,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style("whitegrid")
 
-import os,gc,glob
+import os,gc,glob,re
 
+import warnings
+warnings.filterwarnings("ignore")
 
 
 from keras.preprocessing.text import Tokenizer
@@ -26,7 +29,7 @@ from keras.models import Sequential
 from keras.layers import Input, Dense, Embedding, Conv1D, 
 Conv2D, MaxPooling1D, MaxPool2D
 from keras.layers import Reshape, Flatten, Dropout, Concatenate
-from keras.layers import SpatialDropout1D, concatenate
+from keras.layers import SpatialDropout1D, concatenate	
 from keras.layers import GRU, Bidirectional, 
 GlobalAveragePooling1D, GlobalMaxPooling1D
 
